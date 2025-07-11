@@ -1,0 +1,89 @@
+// 文本溢出显示省略号
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 多行文本溢出显示省略号
+@mixin multi-ellipsis($line: 2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+
+// flex布局
+@mixin flex($justify: center, $align: center, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+
+// 定位居中
+@mixin position-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// 宽高
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+// 一像素边框
+@mixin hairline($position: bottom, $color: $border-color-base) {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    
+    @if $position == top {
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 1px;
+      transform: scaleY(0.5);
+      border-top: 1px solid $color;
+    }
+    @else if $position == right {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 1px;
+      transform: scaleX(0.5);
+      border-right: 1px solid $color;
+    }
+    @else if $position == bottom {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      transform: scaleY(0.5);
+      border-bottom: 1px solid $color;
+    }
+    @else if $position == left {
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 1px;
+      transform: scaleX(0.5);
+      border-left: 1px solid $color;
+    }
+    @else if $position == all {
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      transform: scale(0.5);
+      transform-origin: left top;
+      border: 1px solid $color;
+    }
+  }
+}
